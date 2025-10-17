@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CreditSco | Login</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="responsive.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo">
+      <img src="assets/logo.jpg" alt="CreditSco Logo" class="logo-img">
+      <p>Your gateway to earning college credits</p>
+    </div>
+    <!-- Login -->
+    <div class="login-card">
+      <h2>Sign In</h2>
+      <p class="subtitle">Discover credit-earning events and track your progress</p>
+      <form id="loginForm">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="student@university.edu" required>
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+        <button type="submit" id="loginBtn">Submit</button>
+      </form>
+      <!-- Error Message -->
+      <p id="errorMessage"></p>
+      <!-- Forgot Password -->
+      <div class="forgot-container">
+        <a href="forgot.html" class="forgot-link">Forgot your password?</a>
+      </div>
+    </div> 
+    <!-- Footer -->
+    <footer>
+      <p>© 2025 CreditSco. All rights reserved.</p>
+      <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a>
+    </footer>
+  </div>
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

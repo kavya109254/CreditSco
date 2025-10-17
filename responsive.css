@@ -1,0 +1,238 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.topbar, .navbar, header {
+  width: 100%;
+  margin: 0;
+  padding: 12px clamp(12px, 4vw, 20px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--nav-bg);
+  color: var(--nav-text);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo-img {
+  height: 50px;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: var(--nav-text);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.nav-links a.active,
+.nav-links a:hover {
+  background: rgba(200,169,126,0.12);
+  color: var(--primary);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.actions button,
+#theme-toggle,
+.menu-toggle,
+.logout {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 8px 16px !important;   
+  border-radius: 6px !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#theme-toggle:hover,
+.menu-toggle:hover {
+  background: #b08968;
+}
+
+.logout {
+  background: #dc3545 !important;
+}
+.logout:hover {
+  background: #c82333 !important;
+}
+
+main, #dashboard {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(12px, 4vw, 20px);
+}
+
+.card {
+  background: var(--card);
+  color: var(--text);
+  padding: 24px;
+  margin: 16px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.login-container, .modal-content {
+  width: 100%;
+  max-width: 500px;
+  margin: clamp(8px, 2vw, 16px) auto;
+  padding: clamp(16px, 4vw, 24px);
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+  font-size: clamp(13px, 2.5vw, 15px);
+  background: var(--card);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+th, td {
+  padding: clamp(6px, 2vw, 12px);
+  text-align: left;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+th {
+  background: #f8f8f8;
+  font-weight: 600;
+}
+
+tr:hover {
+  background: rgba(200,169,126,0.08);
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-wrapper table {
+  min-width: 1000px;
+}
+
+@media (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+.progress-bar {
+  height: 14px;
+  background: #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.progress-bar #progressFill {
+  height: 100%;
+  background: var(--primary);
+  width: 0;
+  border-radius: 8px;
+  transition: width 0.5s ease;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  bottom: 0;
+  width: 260px;
+  background: var(--card);
+  color: var(--text);
+  padding: 20px;
+  border-right: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: left 0.3s ease;
+  z-index: 6000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar.active { left: 0; }
+
+.sidebar .logo-img {
+  height: 64px;
+  margin: 0 auto 16px;
+  display: block;
+}
+.sidebar .close-btn {
+  align-self: flex-end;
+  font-size: 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--text);
+}
+.sidebar a {
+  display: block;
+  color: var(--text);
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: background 0.2s ease;
+}
+.sidebar a:hover {
+  background: rgba(200,169,126,0.12);
+}
+
+@media (min-width: 769px) {
+  .sidebar { left: -100% !important; }
+  .menu-toggle { display: none; }
+  .topbar .nav-links { display: flex; }
+}
+
+@media (max-width: 768px) {
+  .topbar .nav-links { display: none; }
+  .menu-toggle { display: inline-block; }
+  .sidebar { display: flex; }
+}

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CreditSco | Student Dashboard</title>
+
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="student.css">
+  <link rel="stylesheet" href="responsive.css">
+
+  <style>
+    section.tab { display: none; }
+    section.tab.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+<header>
+  <nav class="topbar">
+    <div class="logo">
+      <img src="assets/logo.jpg" alt="CreditSco Logo" class="logo-img">
+    </div>
+
+
+    <ul class="nav-links">
+      <li><a href="#" class="active" data-tab="overview">Overview</a></li>
+      <li><a href="#" data-tab="browse">Browse Events</a></li>
+      <li><a href="#" data-tab="my-events">My Events</a></li>
+      <li><a href="#" data-tab="activities">My Activities</a></li>
+      <li><a href="#" data-tab="externalActivities">External Activities</a></li>
+      <li><a href="#" data-tab="profile">Profile</a></li>
+    </ul>
+
+    <div class="actions">
+      <button id="theme-toggle"></button>
+      <button class="menu-toggle">☰</button>
+      <button id="logoutBtn" class="logout">Logout</button>
+    </div>
+  </nav>
+</header>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <img src="assets/logo.jpg" alt="CreditSco Logo" class="logo-img">
+  </div>
+  <button class="close-btn">✕</button>
+  <a href="#" data-tab="overview">Overview</a>
+  <a href="#" data-tab="browse">Browse Events</a>
+  <a href="#" data-tab="my-events">My Events</a>
+  <a href="#" data-tab="activities">My Activities</a>
+  <a href="#" data-tab="externalActivities">External Activities</a>
+  <a href="#" data-tab="profile">Profile</a>
+</aside>
+
+
+  <!-- Content -->
+  <main id="dashboard">
+
+    <!-- Overview -->
+    <section id="overview" class="tab active">
+      <h2>Welcome back, <span id="studentName">Student</span>!</h2>
+      <div class="card-grid">
+        <div class="card info-card">
+          <h3>College Credits Made Simple 🎓</h3>
+          <p>You've probably heard about “College Credits", but does anyone really explain what it means? It's okay; we are here to help you.</p>
+          <p>There are two types of credits:</p>
+          <ul>
+            <li><strong>Academic Credits</strong> – earned through your courses and exams.</li>
+            <li><strong>Activity Credits</strong> – earned by participating in college events, clubs, and completing tasks.</li>
+          </ul>
+          <p>Tracking all of this can be confusing… that’s where CreditSco comes in! It helps you keep track of your credits in one place, see your progress, and plan your next activity to earn more. Stay on top, stay motivated, and let your credits tell the story of your college journey!</p>
+        </div>
+
+        <div class="card stats-card">
+          <h3>Your Progress</h3>
+          <p>You have <strong id="earnedCredits">0</strong> credits out of 
+          <strong id="requiredCredits">22</strong> required.</p>
+          <div class="progress-bar"><div id="progressFill"></div></div>
+        </div>
+        <div>
+          <p><strong>Current Semester:</strong> <span id="currentSemester">Loading...</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Browse Events -->
+    <section id="browse" class="tab">
+      <h2>Browse Events</h2>
+      <div id="eventsList"></div>
+    </section>
+
+    <!-- My Events -->
+    <section id="my-events" class="tab">
+      <h2>My Events</h2>
+      <ul id="myEventsList" class="list-card"></ul>
+    </section>
+
+    <!-- My Activities -->
+    <section id="activities" class="tab">
+      <h2>My Activities</h2>
+      <ul id="activitiesList" class="list-card"></ul>
+    </section>
+
+        <!-- External Activities-->
+    <section id="externalActivities" class="tab">
+      <h2>Submit External Activity for Credits</h2>
+
+      <form id="externalForm">
+        <div class="form-group">
+          <label>Event Name</label>
+          <input type="text" id="eventName" required>
+        </div>
+
+        <div class="form-group">
+          <label>Organizer / Platform</label>
+          <input type="text" id="organizer" required>
+        </div>
+
+        <div class="form-group">
+          <label>Category</label>
+          <select id="category" required>
+            <option value="">Select</option>
+            <option>Technical</option>
+            <option>Cultural</option>
+            <option>Sports</option>
+            <option>Volunteering</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="eventDate" required>
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="description" rows="3" placeholder="Brief about your participation"></textarea>
+        </div>
+
+        <!-- NEW: Proof Type -->
+        <div class="form-group">
+          <label>Proof Type</label>
+          <select id="proofType" required>
+            <option value="">Select</option>
+            <option value="upload">Upload Certificate (PDF/Image)</option>
+            <option value="online">Provide Online Proof Link</option>
+          </select>
+        </div>
+
+        <!-- NEW: Proof URL (Hidden by default) -->
+        <div class="form-group" id="urlGroup" style="display:none;">
+          <label>Online Proof URL</label>
+          <input type="url" id="proofURLInput" placeholder="https://example.com/certificate">
+        </div>
+
+        <div class="form-group" id="fileGroup" style="display:none;">
+          <label>Upload Proof (image/pdf)</label>
+          <div id="fileUploadBox">
+            <label id="fileLabel" class="file-label">
+              <span id="fileLabelText"><i class="file-icon">📄</i> Choose File</span>
+              <input type="file" id="proofFile" accept="image/*,.pdf" style="display:none;">
+              <button type="button" id="removeFileBtn" class="remove-file-btn" style="display:none;">✕</button>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn">Submit</button>
+        <p id="formMsg"></p>
+      </form>
+    </section>
+
+    <!-- Profile -->
+    <section id="profile" class="tab">
+      <h2>My Profile</h2>
+      <div class="card-grid">
+        <div class="card profile-card">
+          <p><strong>Name:</strong> <span id="profileName"></span></p>
+          <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+          <p><strong>Department:</strong> <span id="profileDept"></span></p>
+          <p><strong>Degree:</strong> <span id="profileDegree"></span></p>
+
+          <p><strong>Roll No:
+            <input type="text" id="profileRoll" readonly>
+            <button id="saveRollBtn" style="display:none;">Save</button>
+          </strong></p>
+
+          <p><strong>Year:</strong> 
+            <select id="profileYear" disabled>
+              <option value="1st Year">1st Year</option>
+              <option value="2nd Year">2nd Year</option>
+              <option value="3rd Year">3rd Year</option>
+            </select>
+            <button id="saveYearBtn" style="display:none;">Save</button>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+ 
+  <!-- Club Description Modal -->
+  <div id="clubModal" class="club-modal">
+    <div class="club-modal-content">
+      <button class="close-btn">&times;</button>
+      <h3 id="clubModalName"></h3>
+      <p id="clubModalDesc"></p>
+    </div>
+  </div>
+
+  <!-- Registration Modal -->
+  <div id="registrationModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h3>Register for Event</h3>
+      <form id="registrationForm">
+        <input type="hidden" id="regEventId">
+        <input type="hidden" id="regEventTitle">
+        <label>Phone Number</label>
+        <input type="tel" id="regPhone" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit number" required>
+        <button id="regSubmitBtn" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="theme.js"></script>
+  <script type="module" src="student.js"></script>
+</body>
+</html>

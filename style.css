@@ -1,0 +1,141 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f5f0e6, #e8e2d8); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+  color: #111;
+}
+
+.login-container {
+  text-align: center;
+  width: 100%;
+  max-width: 420px;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo-img {
+  height: 120px;  
+  margin-bottom: 10px;
+}
+
+.logo p {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+}
+
+.login-card {
+  background: #2a2a2a; 
+  color: #f5f0e6;    
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  text-align: left;
+}
+
+.login-card h2 {
+  margin: 0 0 10px;
+  font-size: 22px;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #dcd6cc;
+  margin-bottom: 20px;
+}
+
+.login-card label {
+  font-size: 13px;
+  color: #f0ebe2;
+  margin: 8px 0 4px;
+  display: block;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  background: #f9f6f2; 
+  color: #111;
+  font-size: 14px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #c8a97e;  
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+  outline: none;
+  margin-bottom: 0;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(200,169,126,0.4);
+}
+
+button:hover {
+  background: #b08968;  
+}
+
+.forgot-container {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.forgot-link {
+  color: #c8a97e;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+#errorMessage {
+  display: none; 
+  background: rgba(200, 50, 50, 0.15);
+  color: #e57373;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-top: 12px;
+  font-size: 14px;
+  text-align: center;
+}
+
+footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 12px;
+  color: #777;
+}
+
+footer a {
+  color: #c8a97e;
+  text-decoration: none;
+  margin: 0 4px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}

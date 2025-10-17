@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CreditSco | Club Head Dashboard</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="clubHead.css">
+  <link rel="stylesheet" href="responsive.css">
+  <style>
+    section.tab { display: none; }
+    section.tab.active { display: block; }
+  </style>
+</head>
+<body data-theme="light">
+
+  <!-- Topbar -->
+  <header>
+    <nav class="topbar">
+      <div class="logo">
+        <img src="assets/logo.jpg" alt="CreditSco Logo" class="logo-img">
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="#" class="active" data-tab="club-overview">Club Overview</a></li>
+        <li><a href="#" data-tab="manage-events">Manage Events</a></li>
+        <li><a href="#" data-tab="browse-events">Browse Events</a></li>
+        <li><a href="#" data-tab="students">Manage Registration</a></li>
+        <li><a href="#" data-tab="assign-credits">Assign Credits</a></li>
+        <li><a href="#" data-tab="club-history">Credit History</a></li>
+        <li><a href="#" data-tab="profile">Profile</a></li>
+      </ul>
+
+      <div class="actions">
+        <button id="theme-toggle" title="Toggle theme">🌙</button>
+        <button class="menu-toggle" aria-label="Open menu">☰</button>
+        <button id="logoutBtn" class="logout">Logout</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-hidden="true">
+    <div class="sidebar-logo">
+      <img src="assets/logo.jpg" alt="CreditSco Logo" class="logo-img">
+    </div>
+    <button class="close-btn" aria-label="Close menu">✕</button>
+
+    <a href="#" data-tab="club-overview">Club Overview</a>
+    <a href="#" data-tab="manage-events">Manage Events</a>
+    <a href="#" data-tab="browse-events">Browse Events</a>
+    <a href="#" data-tab="students">Manage Registration</a>
+    <a href="#" data-tab="assign-credits">Assign Credits</a>
+    <a href="#" data-tab="club-history">Credit History</a>
+    <a href="#" data-tab="profile">Profile</a>
+  </aside>
+
+  <!-- Main content -->
+  <main id="dashboard">
+    <!-- Club Overview -->
+    <section id="club-overview" class="tab active">
+      <h2>Welcome, <span id="clubHeadName">Club Head</span>!</h2>
+      <div class="card">
+        <h3>Club Information</h3>
+        <p><strong>Club Name:</strong> <span id="clubName"></span></p>
+        <p><strong>Description:</strong></p>
+        <div id="clubDescription" class="club-description"></div>
+        <button id="editClubBtn">Edit Club Description</button>
+      </div>
+        <p><strong>Current Semester: <span id="clubSemesterOverview">Loading...</span></strong></p>
+    </section>
+
+    <!-- Manage Events -->
+    <section id="manage-events" class="tab">
+      <h2>Manage Events</h2>
+      <button id="addEventBtn" class="primary-btn">+ Add New Event</button>
+      <div id="eventFormContainer" class="card" style="display:none; margin-top:20px;">
+        <h3>Create New Event</h3>
+        <form id="eventForm">
+          <label for="eventTitle">Event Title</label>
+          <input type="text" id="eventTitle" placeholder="Enter event name" required>
+          <label for="eventDescription">Event Description</label>
+          <textarea id="eventDescription" placeholder="Enter details about the event" required></textarea>
+          <label for="eventCredits">Credits</label>
+          <input type="number" id="eventCredits" placeholder="Number of credits" required>
+          <label for="eventDate">Event Date</label>
+          <input type="date" id="eventDate" required>
+          <label for="eventDeadline">Last Date to Register</label>
+          <input type="date" id="eventDeadline" required>
+          <p>Students will register using the in-app registration form!</p>
+          <button type="submit" class="primary-btn">Create Event</button>
+        </form>
+      </div>
+      <div id="clubEventsList" style="margin-top:18px;"></div>
+    </section>
+
+    <!-- Browse Events -->
+    <section id="browse-events" class="tab">
+      <h2>Browse Events</h2>
+      <div id="clubBrowseEventsList"></div>
+    </section>
+
+    <!-- Registered Students -->
+    <section id="students" class="tab">
+      <h2>Manage Registration</h2>
+      <div id="studentList">
+        <p>Select an event to see registered students.</p>
+      </div>
+    </section>
+
+    <!-- Assign Credits -->
+    <section id="assign-credits" class="tab">
+      <h2>Assign Credits</h2>
+      <div id="assignCreditsList">
+        <p>Select an event to assign credits after completion.</p>
+      </div>
+    </section>
+
+    <!-- Club Credit History -->
+    <section id="club-history" class="tab">
+      <h2>Club Credit History</h2>
+      <div id="clubCreditHistory"></div>
+    </section>
+
+    <!-- Profile -->
+    <section id="profile" class="tab">
+      <h2>My Profile</h2>
+      <div class="card profile-card">
+        <p><strong>Name:</strong> <span id="profileName"></span></p>
+        <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+        <p><strong>Club:</strong> <span id="profileClub"></span></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Club Edit Modal -->
+  <div id="clubEditModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <h3>Edit Club Description</h3>
+      <textarea id="clubDescInput" rows="6" style="width:100%"></textarea>
+      <div style="margin-top:12px; text-align:right;">
+        <button type="button" id="cancelClubEdit" class="secondary-btn">Cancel</button>
+        <button type="button" id="saveClubDesc" class="primary-btn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Event Edit Modal -->
+  <div id="eventEditModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <span id="closeEventEdit" class="close">&times;</span>
+      <h3>Edit Event</h3>
+      <form id="eventEditForm">
+        <label>Title:</label>
+        <input type="text" id="editEventTitle" required />
+        <label>Description:</label>
+        <textarea id="editEventDescription" required></textarea>
+        <label>Credits:</label>
+        <input type="number" id="editEventCredits" required min="0" />
+        <label>Date:</label>
+        <input type="date" id="editEventDate" required />
+        <label>Deadline:</label>
+        <input type="date" id="editEventDeadline" required />
+        <div style="margin-top:12px; text-align:right;">
+          <button type="button" id="cancelEventEdit" class="secondary-btn">Cancel</button>
+          <button type="submit" class="primary-btn">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="clubModal" class="club-modal">
+    <div class="club-modal-content">
+      <button class="close-btn">&times;</button>
+      <h3 id="clubModalName"></h3>
+      <p id="clubModalDesc"></p>
+    </div>
+  </div>
+  <script src="theme.js"></script>
+  <script type="module" src="clubHead.js"></script>
+</body>
+</html>

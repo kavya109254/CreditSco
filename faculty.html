@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CreditSco | Faculty Dashboard</title>
+
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="faculty.css">
+  <link rel="stylesheet" href="responsive.css">
+
+  <style>
+    section.tab { display: none; }
+    section.tab.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <header>
+    <nav class="topbar">
+      <div class="logo">
+        <img src="assets/logo.jpg" alt="CreditSco Logo" class="logo-img">
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="#" class="active" data-tab="overview">Overview</a></li>
+        <li><a href="#" data-tab="browse-events">Browse Events</a></li>
+        <li><a href="#" data-tab="requests">Pending Requests</a></li>
+        <li><a href="#" data-tab="externalActivities">External Activities Approvals</a></li>
+        <li><a href="#" data-tab="students">Search Students</a></li>
+        <li><a href="#" data-tab="history">Credit History</a></li>
+        <li><a href="#" data-tab="profile">Profile</a></li>
+      </ul>
+
+      <div class="actions">
+        <button id="theme-toggle">🌙</button>
+        <button class="menu-toggle">☰</button>
+        <button id="logoutBtn" class="logout">Logout</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="assets/logo.jpg" alt="CreditSco Logo" class="logo-img">
+    </div>
+    <button class="close-btn">✕</button>
+    <a href="#" data-tab="overview">Overview</a>
+    <a href="#" data-tab="browse-events">Browse Events</a>
+    <a href="#" data-tab="requests">Pending Requests</a>
+    <a href="#" data-tab="externalActivities">External Activities Approvals</a>
+    <a href="#" data-tab="students">Search Students</a>
+    <a href="#" data-tab="history">Credit History</a>
+    <a href="#" data-tab="profile">Profile</a>
+  </aside>
+
+  <!-- Content -->
+  <main id="dashboard">
+    <!-- Overview -->
+    <section id="overview" class="tab active">
+      <h2>Welcome, <span id="facultyNameOverview"></span>!</h2>
+      <div class="card">
+        <p>As a faculty member, you play a crucial role in supporting students' academic journey.</p>
+        <p>Here in CreditSco you can approve student credit requests, assign academic credits, and track credit history.</p>
+      </div>
+      <p><strong>Current Semester: <span id="facultySemesterOverview">Loading...</span></strong></p>
+    </section>
+
+    <!-- Browse Events -->
+    <section id="browse-events" class="tab">
+      <h2>Browse Events</h2>
+      <div id="eventsList"></div>
+    </section>
+
+    <!-- Pending Requests -->
+    <section id="requests" class="tab">
+      <h2>Pending Credit Requests</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Event</th>
+            <th>Total Credits</th>
+            <th>Assigned</th>
+            <th>Reason</th>
+            <th>Type</th>
+            <th>Club</th> 
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="requestsBody"></tbody>
+      </table>
+      <p id="loadingRequests">Loading requests...</p>
+    </section>
+
+    <!-- External Approvals -->
+      <section id="externalActivities" class="tab">
+        <h2>External Activities - Pending Approvals</h2>
+        <div id="externalActivitiesList"></div>
+      </section>
+
+    <!-- Search Students -->
+    <section id="students" class="tab">
+    <h2>Search & Assign Credits</h2>
+    <div class="year-tabs">
+      <button class="year-btn active" data-year="1st Year">1st Year</button><br><br>
+      <button class="year-btn" data-year="2nd Year">2nd Year</button><br><br>
+      <button class="year-btn" data-year="3rd Year">3rd Year</button><br><br>
+    </div>
+
+    <input type="text" id="studentSearch" placeholder="Search by name, email, or roll no" />
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Roll No</th>
+          <th>Year</th>
+          <th>Degree</th>
+          <th>Department</th>
+          <th>Email</th>
+          <th>External Credits</th>
+          <th>Academic Credits</th>
+          <th>Total</th>
+          <th>Assign Academic</th>
+        </tr>
+      </thead>
+      <tbody id="studentsBody"></tbody>
+    </table>
+  </section>
+
+    <!-- Credit History -->
+    <section id="history" class="tab">
+      <h2>Credit History</h2>
+      <div class="filter-bar">
+        <label for="yearFilter">Filter by Year:</label>
+        <select id="yearFilter">
+          <option value="All">All Years</option>
+          <option value="1st Year">1st Year</option>
+          <option value="2nd Year">2nd Year</option>
+          <option value="3rd Year">3rd Year</option>
+        </select>
+        <button id="exportYearReport" class="btn">Download CSV Report</button>
+      </div>
+      <input type="text" id="historySearch" placeholder="Search by name, roll no, or department">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Roll No</th>
+              <th>Year</th>
+              <th>Degree</th>
+              <th>Department</th>
+              <th>Academic</th>
+              <th>Club</th>
+              <th>External</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+      <p id="loadingHistory">Loading history...</p>
+    </section>
+
+    <!-- Profile -->
+    <section id="profile" class="tab">
+      <h2>My Profile</h2>
+      <div class="card-grid">
+        <div class="card profile-card">
+          <p><strong>Name:</strong> <span id="profileName"></span></p>
+          <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+          <p><strong>Department:</strong> <span id="profileDept"></span></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="clubModal" class="club-modal">
+    <div class="club-modal-content">
+      <button class="close-btn">✕</button>
+      <h3 id="clubModalName"></h3>
+      <p id="clubModalDesc"></p>
+    </div>
+  </div>
+
+  <script src="theme.js"></script>
+  <script type="module" src="faculty.js"></script>
+</body>
+</html>

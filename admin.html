@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CreditSco | Admin Dashboard</title>
+
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="clubHead.css">
+  <link rel="stylesheet" href="responsive.css">
+
+  <style>
+    section.tab { display: none; }
+    section.tab.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <header>
+    <nav class="topbar">
+      <div class="logo">
+        <img src="assets/logo.jpg" alt="CreditSco Logo" class="logo-img">
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="#" class="active" data-tab="overview">Overview</a></li>
+        <li><a href="#" data-tab="students">Manage Students</a></li>
+        <li><a href="#" data-tab="faculty">Manage Faculty</a></li>
+        <li><a href="#" data-tab="clubs">Manage Clubs</a></li>
+        <li><a href="#" data-tab="events">Browse Events</a></li>
+        <li><a href="#" data-tab="semester">Semester Controls</a></li>
+      </ul>
+
+      <div class="actions">
+        <button id="theme-toggle">🌙</button>
+        <button class="menu-toggle">☰</button>
+        <button id="logoutBtn" class="logout">Logout</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="assets/logo.jpg" alt="CreditSco Logo" class="logo-img">
+    </div>
+    <button class="close-btn">✕</button>
+    <a href="#" data-tab="overview">Overview</a>
+    <a href="#" data-tab="students">Manage Students</a>
+    <a href="#" data-tab="faculty">Manage Faculty</a>
+    <a href="#" data-tab="clubs">Manage Clubs</a>
+    <a href="#" data-tab="events">Browse Events</a>
+    <a href="#" data-tab="semester">Semester Controls</a>
+  </aside>
+
+  <!-- Content -->
+  <main id="dashboard">
+
+    <!-- Overview -->
+    <section id="overview" class="tab active">
+      <h1>Welcome, <span id="adminNameBig">Admin</span>!</h1>
+      <div class="card">
+        <p>As an administrator, you have full control over the CreditSco platform.</p>
+        <p>Here you can add or remove students, faculty, and clubs, as well as oversee events and semester settings.</p>
+      </div>
+      <p><strong>Semester: <span id="adminSemesterOverview">Loading...</span></strong> </p>
+    </section>
+
+    <!-- Students -->
+    <section id="students" class="tab">
+      <h2>Manage Students</h2>
+      <div class="card">
+        <h3>Add New Student (use Firebase UID)</h3>
+        <form id="addStudentForm" autocomplete="off">
+          <input id="studentUID" placeholder="Firebase UID" required />
+          <input id="studentName" placeholder="Name" required />
+          <input id="studentEmail" placeholder="Email" type="email" required />
+          <input id="studentRoll" placeholder="Roll Number" />
+          <input id="studentDegree" placeholder="Degree" />
+          <input id="studentDept" placeholder="Department" />
+          <select id="studentYear" required>
+            <option value="">-- Select Year --</option>
+            <option value="1st Year">1st Year</option>
+            <option value="2nd Year">2nd Year</option>
+            <option value="3rd Year">3rd Year</option>
+          </select>
+          <button class="btn" type="submit">Add Student</button>
+        </form>
+      </div>
+      <div class="card">
+        <h3>Search Students</h3>
+        <input id="studentSearch" placeholder="Search by name, email, roll, degree, or dept" />
+      </div>
+      <div id="studentsList"></div>
+    </section>
+
+    <!-- Faculty -->
+    <section id="faculty" class="tab">
+      <h2>Manage Faculty</h2>
+      <div class="card">
+        <h3>Add New Faculty (use Firebase UID)</h3>
+        <form id="addFacultyForm" autocomplete="off">
+          <input id="facultyUID" placeholder="Firebase UID" required />
+          <input id="facultyName" placeholder="Name" required />
+          <input id="facultyEmail" placeholder="Email" type="email" required />
+          <input id="facultyDept" placeholder="Department" />
+          <button class="btn" type="submit">Add Faculty</button>
+        </form>
+      </div>
+      <div class="card">
+        <h3>Search Faculty</h3>
+        <input id="facultySearch" placeholder="Search by name, email, or department" />
+      </div>
+      <div id="facultyList"></div>
+    </section>
+
+    <!-- Clubs -->
+    <section id="clubs" class="tab">
+      <h2>Manage Clubs</h2>
+      <div class="card">
+        <h3>Add New Club (use Club Head UID)</h3>
+        <form id="addClubForm" autocomplete="off">
+          <input id="clubUID" placeholder="Club Head UID" required />
+          <input id="clubName" placeholder="Club Name" required />
+          <textarea id="clubDescription" placeholder="Short description"></textarea>
+          <input id="clubHeadEmail" placeholder="Head Email" required />
+          <button class="btn" type="submit">Add Club</button>
+        </form>
+      </div>
+      <div class="card">
+        <h3>Search Clubs</h3>
+        <input id="clubSearch" placeholder="Search by club name or head email" />
+      </div>
+      <div id="clubsList"></div>
+    </section>
+
+    <!-- Events -->
+    <section id="events" class="tab">
+      <h2>Browse Events</h2>
+      <div id="eventsList"></div>
+    </section>
+
+    <!-- Semester -->
+    <section id="semester" class="tab">
+      <h2>Semester Controls</h2>
+      <div class="card">
+        <p><strong>Current Semester:</strong> <span id="currentSemester">Not set</span></p>
+        <p><strong>Last Reset:</strong> <span id="lastReset">Not set</span></p>
+        <p><strong>Roll Update Status:</strong> <span id="rollUpdateStatus">Not set</span></p>
+        <p><strong>Year Update Status:</strong> <span id="yearUpdateStatus">Not set</span></p>
+        <input id="editSemesterInput" placeholder="Enter semester text (e.g. 2025 - Summer)" />
+        <button id="updateSemesterBtn" class="btn">Update Semester Text</button>
+        <div style="margin-top:12px;">
+          <button id="resetCreditsBtn" class="btn danger">Reset All Student Credits</button>
+          <button id="toggleRollUpdateBtn" class="btn">Toggle Roll No Update</button>
+          <button id="toggleYearUpdateBtn" class="btn">Toggle Year Update</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Edit Student Modal -->
+  <div id="editUserModal" class="modal">
+    <div class="modal-content">
+      <button id="closeEditBtn" class="close-btn">✕</button>
+      <h3>Edit Student</h3>
+      <input id="editName" placeholder="Name" />
+      <input id="editEmail" placeholder="Email" type="email" />
+      <input id="editRoll" placeholder="Roll Number" />
+      <input id="editDegree" placeholder="Degree" />
+      <input id="editDept" placeholder="Department" />
+      <input id="editYear" placeholder="Year" />
+      <div style="margin-top:10px;">
+        <button id="saveEditBtn" class="btn">Save</button>
+        <button id="cancelEditBtn" class="btn danger">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="clubModal" class="club-modal">
+    <div class="club-modal-content">
+      <button class="close-btn">✕</button>
+      <h3 id="clubModalName"></h3>
+      <p id="clubModalDesc"></p>
+    </div>
+  </div>
+
+  <script src="theme.js"></script>
+  <script type="module" src="./admin.js"></script>
+</body>
+</html>
